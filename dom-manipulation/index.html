@@ -9,18 +9,18 @@
   <h1>Dynamic Quote Generator</h1>
 
   <!-- Quote Display Area -->
-  <div id="quoteDisplay" style="margin: 20px 0; font-style: italic;"></div>
+  <div id="quoteDisplay"></div>
 
-  <!-- Button to show new random quote -->
+  <!-- Button to show new quote -->
   <button id="newQuote">Show New Quote</button>
 
   <hr />
 
-  <!-- Form to add new quote -->
-  <div style="margin-top: 20px;">
+  <!-- Form to add a new quote -->
+  <div>
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn">Add Quote</button>
+    <button onclick="addQuote()">Add Quote</button>
   </div>
 
   <script src="script.js"></script>
