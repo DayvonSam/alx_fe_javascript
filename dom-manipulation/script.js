@@ -1,11 +1,11 @@
-// Initial quotes array
+// Initial array of quotes
 let quotes = [
-  { text: "The only limit to our realization of tomorrow is our doubts of today.", category: "Motivation" },
-  { text: "Life is what happens when you’re busy making other plans.", category: "Life" },
-  { text: "The future belongs to those who believe in the beauty of their dreams.", category: "Inspiration" }
+  { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
+  { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", category: "Inspiration" },
+  { text: "Don’t let yesterday take up too much of today.", category: "Positivity" }
 ];
 
-// Function to display a random quote
+// ✅ Function to show a random quote
 function showRandomQuote() {
   const quoteDisplay = document.getElementById("quoteDisplay");
 
@@ -19,10 +19,7 @@ function showRandomQuote() {
   quoteDisplay.textContent = `"${randomQuote.text}" — (${randomQuote.category})`;
 }
 
-// Attach event listener to the "Show New Quote" button
-document.getElementById("newQuote").addEventListener("click", showRandomQuote);
-
-// Function to add new quotes dynamically
+// ✅ Function to add a new quote
 function addQuote() {
   const newQuoteText = document.getElementById("newQuoteText").value.trim();
   const newQuoteCategory = document.getElementById("newQuoteCategory").value.trim();
@@ -32,13 +29,31 @@ function addQuote() {
     return;
   }
 
-  // Add the new quote to the array
-  const newQuote = { text: newQuoteText, category: newQuoteCategory };
+  // Create a new quote object
+  const newQuote = {
+    text: newQuoteText,
+    category: newQuoteCategory
+  };
+
+  // Add to array
   quotes.push(newQuote);
 
   // Clear input fields
   document.getElementById("newQuoteText").value = "";
   document.getElementById("newQuoteCategory").value = "";
 
+  // Give feedback
   alert("Quote added successfully!");
+
+  // Optionally display the new quote immediately
+  showRandomQuote();
 }
+
+// ✅ Event listener for the "Show New Quote" button
+document.getElementById("newQuote").addEventListener("click", showRandomQuote);
+
+// ✅ Event listener for "Add Quote" button
+document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
+
+// ✅ Display one quote when page loads
+window.onload = showRandomQuote;
