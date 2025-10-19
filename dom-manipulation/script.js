@@ -1,21 +1,12 @@
-// ========================================
-// Dynamic Quote Generator - Task 0
-// ========================================
+// =======================================
+// Dynamic Quote Generator (Task 0)
+// =======================================
 
-// Array of quotes
+// Array of quote objects
 let quotes = [
-  {
-    text: "The best way to get started is to quit talking and begin doing.",
-    category: "Motivation",
-  },
-  {
-    text: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-    category: "Inspiration",
-  },
-  {
-    text: "Don’t let yesterday take up too much of today.",
-    category: "Positivity",
-  },
+  { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
+  { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", category: "Inspiration" },
+  { text: "Don’t let yesterday take up too much of today.", category: "Positivity" }
 ];
 
 // ✅ Function: displayRandomQuote
@@ -27,7 +18,7 @@ function displayRandomQuote() {
     return;
   }
 
-  // ✅ Select a random quote
+  // ✅ Logic to select a random quote
   const randomIndex = Math.floor(Math.random() * quotes.length);
   const randomQuote = quotes[randomIndex];
 
@@ -45,14 +36,14 @@ function addQuote() {
     return;
   }
 
-  // ✅ Add new quote to the array
+  // ✅ Logic to add a new quote to the array
   const newQuote = { text: newQuoteText, category: newQuoteCategory };
   quotes.push(newQuote);
 
-  // ✅ Update the DOM (show the new quote)
+  // ✅ Update the DOM after adding
   displayRandomQuote();
 
-  // ✅ Clear input fields
+  // Clear input fields
   document.getElementById("newQuoteText").value = "";
   document.getElementById("newQuoteCategory").value = "";
 }
@@ -60,5 +51,5 @@ function addQuote() {
 // ✅ Event listener for the “Show New Quote” button
 document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
 
-// ✅ Display a random quote on initial load
+// ✅ Display a quote when page loads
 window.onload = displayRandomQuote;
