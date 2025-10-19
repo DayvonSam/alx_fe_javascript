@@ -1,76 +1,78 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dynamic Quote Generator — Sync & Conflicts</title>
-  <style>
-    :root{
-      --bg:#f6f8fa;
-      --card:#ffffff;
-      --primary:#2563eb;
-      --muted:#6b7280;
-    }
-    body{
-      font-family: Inter, system-ui, Arial, sans-serif;
-      margin:20px auto;
-      max-width:980px;
-      background:var(--bg);
-      color:#111827;
-    }
-    h1 { margin:0 0 12px 0; }
-    .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:12px; }
-    #quoteDisplay {
-      background:var(--card); padding:18px; border-radius:10px; box-shadow:0 1px 4px rgba(2,6,23,0.06);
-      min-height:70px; margin-bottom:12px; font-size:1.05rem;
-    }
-    select,input,button { padding:8px 10px; border-radius:8px; border:1px solid #d1d5db; font-size:0.95rem; }
-    button { background:var(--primary); color:white; border:none; cursor:pointer; }
-    button.ghost { background:transparent; color:var(--primary); border:1px solid var(--primary); }
-    #controls { display:flex; gap:8px; flex-wrap:wrap; }
-    #quotesList { margin-top:18px; display:grid; gap:8px; }
-    .quote-card { background:var(--card); padding:10px; border-radius:8px; display:flex; justify-content:space-between; gap:12px; border:1px solid #e6e9ee; }
-    .meta { color:var(--muted); font-size:0.9rem; margin-top:6px; }
-    #notification { display:none; margin-top:12px; padding:10px; border-radius:8px; background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0; }
-    #conflictsBox { display:none; margin-top:12px; padding:10px; border-radius:8px; background:#fff7ed; color:#92400e; border:1px solid #fed7aa; }
-    .small { font-size:0.85rem; color:var(--muted); }
-    .actions { display:flex; gap:8px; }
-    a.link { color:var(--primary); text-decoration:none; }
-    @media(max-width:640px){ .row{flex-direction:column; align-items:stretch} .actions{justify-content:flex-end} }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Quote Generator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Dynamic Quote Generator — Sync & Conflicts</h1>
+  <div class="container">
+    <header>
+      <h1>Dynamic Quote Generator</h1>
+      <div class="note">ALX style project — DOM, Storage, JSON import/export, filtering & syncing</div>
+    </header>
 
-  <div class="row">
-    <label for="categoryFilter" class="small">Filter:</label>
-    <select id="categoryFilter" onchange="filterQuotes()">
-      <option value="all">All Categories</option>
-    </select>
+    <div class="card">
+      <div id="quoteDisplay">
+        <blockquote id="quoteText">Loading quotes...</blockquote>
+        <div class="meta" id="quoteCategory"></div>
+      </div>
 
-    <div id="controls" style="margin-left:auto">
-      <button id="newQuote">Show New Quote</button>
-      <button id="syncNow" class="ghost">Sync Now</button>
-      <button id="exportJson" class="ghost">Export JSON</button>
-      <input id="importFile" type="file" accept=".json" style="padding:6px" />
-      <button id="resetBtn" class="ghost">Reset</button>
+      <div class="controls">
+        <button id="newQuote" class="small">Show New Quote</button>
+        <select id="categoryFilter" class="small">
+          <option value="all">All Categories</option>
+        </select>
+        <button id="exportJson" class="small">Export JSON</button>
+        <label style="display:inline-block">
+          <input id="importFile" type="file" accept="application/json" style="display:none" />
+          <button id="importBtn" class="small">Import JSON</button>
+        </label>
+        <button id="syncBtn" class="small">Sync Now (simulate)</button>
+        <div style="margin-left:auto" class="flex">
+          <div class="note">Last sync: <span id="lastSync">never</span></div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">Add a Quote</h3>
+            <label for="newQuoteText">Quote text</label>
+            <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+            <label for="newQuoteCategory">Category</label>
+            <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+            <div style="margin-top:10px" class="controls">
+              <button id="addQuoteBtn">Add Quote</button>
+              <button id="clearStorage" class="small">Clear Local Storage</button>
+            </div>
+            <p class="note">Quotes persist in localStorage. Use export/import to transfer between devices.</p>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3 style="margin-top:0">Categories</h3>
+            <div id="categoryList"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">All Quotes</h3>
+            <div style="max-height:340px;overflow:auto;padding-right:8px">
+              <ul id="allQuotesList"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <div class="notify" id="notify">Saved</div>
   </div>
-
-  <div id="quoteDisplay" aria-live="polite">Click "Show New Quote" or add a quote below.</div>
-
-  <div class="row">
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="flex:1" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn">Add Quote</button>
-  </div>
-
-  <div id="notification"></div>
-  <div id="conflictsBox"></div>
-
-  <h2 style="margin-top:18px">All Quotes</h2>
-  <div id="quotesList"></div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
