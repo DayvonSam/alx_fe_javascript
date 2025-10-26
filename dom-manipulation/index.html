@@ -1,76 +1,18 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Quote Generator</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Dynamic Quote Generator</h1>
-      <div class="note">ALX style project — DOM, Storage, JSON import/export, filtering & syncing</div>
-    </header>
+  <h1>Dynamic Quote Generator</h1>
+  
+  <div id="quoteDisplay"></div>
+  <button id="newQuote">Show New Quote</button>
 
-    <div class="card">
-      <div id="quoteDisplay">
-        <blockquote id="quoteText">Loading quotes...</blockquote>
-        <div class="meta" id="quoteCategory"></div>
-      </div>
-
-      <div class="controls">
-        <button id="newQuote" class="small">Show New Quote</button>
-        <select id="categoryFilter" class="small">
-          <option value="all">All Categories</option>
-        </select>
-        <button id="exportJson" class="small">Export JSON</button>
-        <label style="display:inline-block">
-          <input id="importFile" type="file" accept="application/json" style="display:none" />
-          <button id="importBtn" class="small">Import JSON</button>
-        </label>
-        <button id="syncBtn" class="small">Sync Now (simulate)</button>
-        <div style="margin-left:auto" class="flex">
-          <div class="note">Last sync: <span id="lastSync">never</span></div>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div>
-          <div class="card">
-            <h3 style="margin-top:0">Add a Quote</h3>
-            <label for="newQuoteText">Quote text</label>
-            <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-            <label for="newQuoteCategory">Category</label>
-            <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-            <div style="margin-top:10px" class="controls">
-              <button id="addQuoteBtn">Add Quote</button>
-              <button id="clearStorage" class="small">Clear Local Storage</button>
-            </div>
-            <p class="note">Quotes persist in localStorage. Use export/import to transfer between devices.</p>
-          </div>
-
-          <div class="card" style="margin-top:12px">
-            <h3 style="margin-top:0">Categories</h3>
-            <div id="categoryList"></div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <h3 style="margin-top:0">All Quotes</h3>
-            <div style="max-height:340px;overflow:auto;padding-right:8px">
-              <ul id="allQuotesList"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="notify" id="notify">Saved</div>
-  </div>
+  <!-- Container where form will be created dynamically -->
+  <div id="formContainer"></div>
 
   <script src="script.js"></script>
 </body>
