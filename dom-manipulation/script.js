@@ -1,12 +1,12 @@
-// Quotes array with text and category properties
+// Quotes array with text and category
 let quotes = [
   { text: "Be the change you wish to see in the world.", category: "Inspiration" },
   { text: "Success is not final; failure is not fatal.", category: "Motivation" },
   { text: "Happiness depends upon ourselves.", category: "Happiness" }
 ];
 
-// Function to display a random quote (uses innerHTML)
-function displayRandomQuote() {
+// Function NAME must be showRandomQuote
+function showRandomQuote() {
   const randomIndex = Math.floor(Math.random() * quotes.length);
   const quote = quotes[randomIndex];
 
@@ -14,7 +14,7 @@ function displayRandomQuote() {
     `"${quote.text}" <br><em>(${quote.category})</em>`;
 }
 
-// Function to add a new quote to the array and update the DOM
+// Function to add new quote and update DOM
 function addQuote() {
   const text = document.getElementById("newQuoteText").value.trim();
   const category = document.getElementById("newQuoteCategory").value.trim();
@@ -26,14 +26,15 @@ function addQuote() {
 
   quotes.push({ text, category });
 
-  displayRandomQuote(); // Update displayed quote
+  showRandomQuote(); // update DOM immediately
 }
 
 // Event listener for Show New Quote button
-document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
+document.getElementById("newQuote").addEventListener("click", showRandomQuote);
 
-// Event listener for Add Quote button
+// Event listener for add button
 document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
 
-// Display one quote when page loads
-displayRandomQuote();
+// Show one quote when page loads
+showRandomQuote();
+
